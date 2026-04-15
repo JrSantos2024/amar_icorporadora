@@ -37,7 +37,7 @@ h1, h2, h3, h4, blockquote {
   font-family: 'Playfair Display', serif;
   line-height: 1.15;
 }
-h1 { font-size: clamp(2.6rem, 5.5vw, 4.8rem); }
+h1 { font-size: clamp(2.2rem, 5.5vw, 4.8rem); }
 h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
 h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
 h4 { font-size: 1.1rem; }
@@ -76,6 +76,7 @@ strong { color: var(--navy); font-weight: 600; }
   border: none;
   font-family: 'Inter', sans-serif;
   transition: all .35s var(--ease);
+  touch-action: manipulation;
 }
 .btn-gold  { background: var(--gold);  color: var(--dark); }
 .btn-gold:hover  { background: var(--gold-d); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(196,169,98,.35); }
@@ -1348,60 +1349,169 @@ strong { color: var(--navy); font-weight: 600; }
 /* ============================================================
    RESPONSIVE
 ============================================================ */
+
+/* ---- 1100px — large tablet / small desktop ---- */
 @media (max-width: 1100px) {
-  .diff-grid      { grid-template-columns: repeat(2, 1fr); }
-  .about-grid     { gap: 4rem; }
-  .contact-grid   { gap: 3.5rem; }
-  .ts-panel       { padding: 5rem 3rem; }
-  .nov-grid       { grid-template-columns: repeat(3, 1fr); }
+  .diff-grid    { grid-template-columns: repeat(2, 1fr); }
+  .about-grid   { gap: 4rem; }
+  .contact-grid { gap: 3.5rem; }
+  .ts-panel     { padding: 5rem 3rem; }
+  .nov-grid     { grid-template-columns: repeat(2, 1fr); }
+  .nav-wrap     { padding: 0 1.8rem; }
+  .nav-links    { gap: 1.8rem; }
 }
 
+/* ---- 1024px — tablet (hamburger menu) ---- */
+@media (max-width: 1024px) {
+  .nav-links, .nav-cta  { display: none; }
+  .hamburger             { display: flex; }
+
+  .about-section,
+  .emp-section,
+  .novidades-section,
+  .contact-section       { padding: 6rem 2rem; }
+  .diff-inner            { padding: 6rem 2rem; }
+
+  .about-grid            { grid-template-columns: 1fr; }
+  .about-images          { order: -1; }
+  .ai-main img           { height: 420px; }
+
+  .emp-grid              { grid-template-columns: 1fr; }
+  .contact-grid          { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+/* ---- 900px — small tablet ---- */
 @media (max-width: 900px) {
-  /* About */
-  .about-grid           { grid-template-columns: 1fr; }
-  .about-images         { order: -1; }
-  .ai-accent, .ai-frame { display: none; }
-  .ai-main img          { height: 400px; }
-  /* Emp */
-  .emp-grid             { grid-template-columns: 1fr; }
-  /* Contact */
-  .contact-grid         { grid-template-columns: 1fr; }
-  /* Footer */
-  .footer-body          { grid-template-columns: 1fr 1fr; }
+  .ai-accent, .ai-frame  { display: none; }
+  .ai-main img           { height: 380px; }
+  .footer-body           { grid-template-columns: 1fr 1fr; }
+
   /* Brand Band */
-  .bb-inner             { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
-  .bb-rb, .bb-amar      { justify-content: center; }
-  .bb-divider           { flex-direction: row; }
-  .bb-dline             { width: 30px; height: 1px; }
-  /* Transition split → stack */
-  .ts-split             { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
-  .ts-center            { flex-direction: row; min-height: unset; padding: 1.5rem 2rem; background: #141C24; }
-  .ts-cline             { width: 40px; height: 1px; flex: 0; }
-  .ts-clabel            { writing-mode: horizontal-tb; padding: 0 .5rem; }
-  .ts-panel             { padding: 5rem 2.5rem; }
-  /* Novidades */
-  .nov-grid             { grid-template-columns: 1fr; }
+  .bb-inner              { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
+  .bb-rb, .bb-amar       { justify-content: center; }
+  .bb-divider            { flex-direction: row; }
+  .bb-dline              { width: 30px; height: 1px; }
+
+  /* Transition split — stack vertically */
+  .ts-split              { grid-template-columns: 1fr; }
+  .ts-center             { flex-direction: row; min-height: unset; padding: 1.5rem 2rem; background: #141C24; }
+  .ts-cline              { width: 40px; height: 1px; flex: 0; }
+  .ts-clabel             { writing-mode: horizontal-tb; padding: 0 .5rem; }
+  .ts-panel              { padding: 5rem 2.5rem; }
+
+  .nov-grid              { grid-template-columns: 1fr; }
 }
 
+/* ---- 768px — mobile ---- */
 @media (max-width: 768px) {
-  .nav-links, .nav-cta { display: none; }
-  .hamburger            { display: flex; }
-  .diff-grid            { grid-template-columns: 1fr 1fr; }
-  .footer-body          { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-stats          { grid-template-columns: repeat(3, 1fr); }
-  /* Brand band on mobile: hide info text */
-  .bb-info              { display: none; }
-  .bb-inner             { grid-template-columns: 1fr auto 1fr; padding: 1.8rem 1.5rem; gap: 1rem; }
-  .bb-rb, .bb-amar      { justify-content: center; }
-  .bb-divider           { flex-direction: column; }
-  .bb-dline             { width: 1px; height: 20px; }
+  .nav-links, .nav-cta   { display: none; }
+  .hamburger             { display: flex; }
+  .nav-logo              { height: 30px; }
+  .nav-wrap              { padding: 0 1.5rem; }
+
+  /* Section padding */
+  .about-section,
+  .emp-section,
+  .novidades-section,
+  .contact-section       { padding: 4.5rem 1.5rem; }
+  .diff-inner            { padding: 4.5rem 1.5rem; }
+  .footer                { padding: 3.5rem 1.5rem 0; }
+  .ts-panel              { padding: 4rem 1.5rem; }
+  .ts-quote-band         { padding: 2.5rem 1.5rem; }
+
+  /* Hero */
+  .hero                  { min-height: 580px; }
+  .hero-content          { padding: 1.5rem; }
+  .hero-subtitle         { font-size: .92rem; }
+  .hero-badge            { font-size: .65rem; letter-spacing: 3px; padding: .45rem 1.1rem; margin-bottom: 1.4rem; }
+
+  /* Buttons — accessible touch targets (≥ 44px height) */
+  .btn                   { min-height: 44px; }
+  .nav-cta               { min-height: 44px; }
+
+  /* Slider dots — larger tap area */
+  .dot                   { width: 9px; height: 9px; }
+  .slider-dots           { bottom: 1.5rem; gap: .9rem; }
+
+  /* Grids */
+  .diff-grid             { grid-template-columns: 1fr 1fr; }
+  .footer-body           { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-stats           { grid-template-columns: repeat(3, 1fr); }
+
+  /* Brand band */
+  .bb-info               { display: none; }
+  .bb-inner              { grid-template-columns: 1fr auto 1fr; padding: 1.8rem 1.5rem; gap: 1rem; }
+  .bb-rb, .bb-amar       { justify-content: center; }
+  .bb-divider            { flex-direction: column; }
+  .bb-dline              { width: 1px; height: 20px; }
+
+  /* Section headers */
+  .nov-header            { margin-bottom: 3rem; }
+  .emp-header            { margin-bottom: 3rem; }
+
+  /* Scroll animations — reduce translation for performance */
+  [data-aos]              { transform: translateY(20px); }
+  [data-aos="fade-right"] { transform: translateX(-20px); }
+  [data-aos="fade-left"]  { transform: translateX(20px); }
 }
 
+/* ---- 540px — small mobile ---- */
 @media (max-width: 540px) {
-  .diff-grid   { grid-template-columns: 1fr; }
-  .hero-btns   { flex-direction: column; }
-  .about-stats { grid-template-columns: 1fr; gap: 1rem; }
-  .ic-logos    { justify-content: center; }
-  .ts-panel    { padding: 4rem 1.5rem; }
-  .nov-grid    { grid-template-columns: 1fr; }
+  /* Section padding */
+  .about-section,
+  .emp-section,
+  .novidades-section,
+  .contact-section       { padding: 3.5rem 1.2rem; }
+  .diff-inner            { padding: 3.5rem 1.2rem; }
+  .footer                { padding: 3rem 1.2rem 0; }
+
+  /* Grids */
+  .diff-grid             { grid-template-columns: 1fr; }
+
+  /* Hero */
+  .hero-btns             { flex-direction: column; align-items: stretch; }
+  .hero-btns .btn        { justify-content: center; }
+
+  /* About stats */
+  .about-stats           { grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+
+  /* Misc */
+  .ic-logos              { justify-content: center; }
+  .ts-panel              { padding: 3.5rem 1.2rem; }
+  .nov-cta-inner         { padding: 2rem 1.5rem; }
+  .identity-card         { padding: 2rem 1.5rem; }
+
+  /* Brand band */
+  .bb-logo-wrap          { padding: .6rem 1rem; }
+  .bb-logo-wrap img      { height: 28px; }
+
+  /* Preloader */
+  .preloader-logo, .preloader-bar { width: 160px; }
+
+  /* WhatsApp float */
+  .wa-float              { width: 54px; height: 54px; bottom: 1.2rem; right: 1.2rem; }
+  .wa-float svg          { width: 26px; }
+}
+
+/* ---- 375px — extra small mobile ---- */
+@media (max-width: 375px) {
+  .about-stats           { grid-template-columns: 1fr; gap: .7rem; }
+  .hero-content          { padding: 1rem; }
+  .nav-wrap              { padding: 0 1rem; }
+  .bb-inner              { padding: 1.5rem 1rem; }
+  .about-section,
+  .emp-section,
+  .novidades-section,
+  .contact-section       { padding: 3rem 1rem; }
+  .diff-inner            { padding: 3rem 1rem; }
+  .footer                { padding: 2.5rem 1rem 0; }
+}
+
+/* ---- Landscape orientation on mobile ---- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero                  { min-height: 380px; }
+  .hero-content          { padding: .8rem 2rem; }
+  .hero-badge            { margin-bottom: .8rem; }
+  .hero-title            { margin-bottom: .6rem; }
+  .hero-subtitle         { margin-bottom: 1.2rem; font-size: .88rem; }
 }

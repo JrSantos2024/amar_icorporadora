@@ -10,6 +10,12 @@ window.addEventListener('load', () => {
 });
 
 /* ============================================================
+   REDUCED MOTION & MOBILE HELPERS
+============================================================ */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobileViewport    = () => window.innerWidth <= 768;
+
+/* ============================================================
    NAVBAR SCROLL
 ============================================================ */
 const navbar = document.getElementById('navbar');
@@ -83,16 +89,21 @@ startSlider();
 ============================================================ */
 const aosElements = document.querySelectorAll('[data-aos]');
 
-const aosObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const delay = parseInt(entry.target.dataset.aosDelay || 0);
-    setTimeout(() => entry.target.classList.add('aos-on'), delay);
-    aosObserver.unobserve(entry.target);
-  });
-}, { threshold: 0.12 });
+if (prefersReducedMotion) {
+  // Skip animations when user prefers reduced motion
+  aosElements.forEach(el => el.classList.add('aos-on'));
+} else {
+  const aosObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const delay = parseInt(entry.target.dataset.aosDelay || 0);
+      setTimeout(() => entry.target.classList.add('aos-on'), delay);
+      aosObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
 
-aosElements.forEach(el => aosObserver.observe(el));
+  aosElements.forEach(el => aosObserver.observe(el));
+}
 
 /* ============================================================
    SMOOTH SCROLL
@@ -153,10 +164,23 @@ document.querySelectorAll('.stat-num').forEach(el => statsObserver.observe(el));
 ============================================================ */
 const heroOverlay = document.querySelector('.hero-overlay');
 
-window.addEventListener('scroll', () => {
-  if (!heroOverlay) return;
-  const y = window.scrollY;
-  if (y < window.innerHeight) {
-    heroOverlay.style.transform = `translateY(${y * 0.15}px)`;
-  }
-}, { passive: true });
+if (heroOverlay && !prefersReducedMotion) {
+  window.addEventListener('scroll', () => {
+    if (isMobileViewport()) return;
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      heroOverlay.style.transform = `translateY(${y * 0.15}px)`;
+    }
+  }, { passive: true });
+}
+
+/* ============================================================
+   ORIENTATION CHANGE
+============================================================ */
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    const scrollY = window.scrollY;
+    if (navbar)  navbar.classList.toggle('scrolled', scrollY > 70);
+    if (waFloat) waFloat.classList.toggle('visible', scrollY > 350);
+  }, 200);
+});
